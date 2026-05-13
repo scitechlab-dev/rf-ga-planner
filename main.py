@@ -9,7 +9,9 @@ Modos:
   2. Optimización con algoritmo genético (con opción de concentradores fijos)
 """
 
-from linea_vista_sv import LineaVista, generar_kml, generar_kml_agrupado
+from cartografia import Cartografia
+from linea_vista_fresnel import LineaVistaFresnel
+from exportacion import generar_kml, generar_kml_agrupado
 from algoritmo_genetico import OptimizadorCobertura, ConfigGA
 import pandas as pd
 
@@ -165,8 +167,11 @@ print("   SISTEMA DE ANÁLISIS RF - EL SALVADOR")
 print("   Versión 2.0 - Con soporte para concentradores fijos")
 print("="*60 + "\n")
 
-# Cargar módulo de línea de vista
-lv = LineaVista()
+# Cargar cartografía SRTM (una sola vez, reutilizable por cualquier modelo RF)
+carto = Cartografia()
+
+# Crear analizador RF basado en Fresnel
+lv = LineaVistaFresnel(carto)
 
 # Cargar CSV para mostrar info
 df = pd.read_csv(CSV_PATH)
